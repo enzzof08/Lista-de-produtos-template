@@ -1,5 +1,6 @@
 'use strict'
 
+
 const listaProdutos = [
   {
     "id": 1,
@@ -92,3 +93,55 @@ const listaProdutos = [
     "classificacao": 4
   }
 ]
+
+function criarEstrelas(nota) {
+  const container = document.createElement('div')
+  container.className = 'estrelas'
+
+  for (let i = 1; i <= 5; i++) {
+    const estrela = document.createElement('span')
+    estrela.innerHTML = '★'
+
+    if (i <= nota) {
+      estrela.classList.add('ativa')
+    }
+
+    container.appendChild(estrela)
+  }
+
+  return container
+}
+
+function criarCard(produtos){
+  const card = document.createElement('div')
+  card.className = 'card'
+
+  const estrelas = criarEstrelas(produtos.classificacao)
+  
+
+  const foto = document.createElement('img')
+  foto.src = `./img/${produtos.imagem}`
+  foto.alt = "Imagem sobre o produto"
+
+  const nome = document.createElement('h3')
+  nome.textContent = produtos.nome
+
+  const descricao = document.createElement('p')
+  descricao.textContent = produtos.descricao
+
+  const categoria = document.createElement('h6')
+  categoria.textContent = produtos.categoria
+  
+  const preco = document.createElement('h2')
+  preco.textContent = produtos.preco
+
+  
+
+
+  card.append(foto,nome,descricao,estrelas,categoria,preco)
+  return card
+}
+
+const cards = listaProdutos.map(criarCard)
+
+document.getElementById('container').append(...cards)
